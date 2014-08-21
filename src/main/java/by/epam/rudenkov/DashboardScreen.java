@@ -16,24 +16,17 @@ public class DashboardScreen {
 		this.driver = driver;
 	}
 
-	public void dashboardSwitherRun() {
+	public void dashboardSwitherRun() throws InterruptedException {
 		List<WebElement> dashBoards = driver.findElements(By.xpath(DASHBOARDS_XPATH));
 		System.out.println("RP_Swither starts successful, " + dashBoards.size() + " dashboards, " + TIMEOUT_SECONDS
 				+ " second wait between frames.");
-		try {
-			for (;;) {
-				for (WebElement board : dashBoards) {
-					board.click();
-					try {
-						Thread.sleep(TIMEOUT_SECONDS * 1000);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-				}
+		for (;;) {
+			for (WebElement board : dashBoards) {
+				board.click();
+
+				Thread.sleep(TIMEOUT_SECONDS * 1000);
 			}
-		} finally {
-			System.out.println("Error was occurred. Program was stopped.");
-			driver.close();
+
 		}
 
 	}

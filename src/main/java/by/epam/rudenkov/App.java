@@ -1,6 +1,7 @@
 package by.epam.rudenkov;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class App {
@@ -11,15 +12,24 @@ public class App {
 	static WebDriver driver;
 
 	public static void main(String[] args) {
-		driver = new FirefoxDriver();
-		driver.get(URL_RP);
-		login();
 		try {
+			driver = new FirefoxDriver();
+			driver.get(URL_RP);
+			login();
 			Thread.sleep(3000);
+			runSwitcher();
+
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+		} catch (WebDriverException e) {
+		} finally {
+			try {
+				driver.close();
+				System.out.println("Programm closed");
+			} catch (WebDriverException e) {
+				System.out.println("Programm closed");
+			}
 		}
-		runSwitcher();
+
 	}
 
 	private static void login() {
@@ -31,7 +41,7 @@ public class App {
 
 	}
 
-	private static void runSwitcher() {
+	private static void runSwitcher() throws InterruptedException {
 		DashboardScreen dashboardScreen = new DashboardScreen(driver);
 		dashboardScreen.dashboardSwitherRun();
 
