@@ -1,13 +1,14 @@
 package by.epam.rudenkov;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class App {
 
-	private final static String LOGIN_NAME = "#";
-	private final static String LOGIN_PASS = "#";
+	private final static String LOGIN_NAME = "krux_Customer1";
+	private final static String LOGIN_PASS = "kruxCust";
 	private final static String URL_RP = "https://reportportal.epmc-tst.projects.epam.com:8443";
 	static WebDriver driver;
 
@@ -42,6 +43,7 @@ public class App {
 	}
 
 	private static void runSwitcher() throws InterruptedException {
+		((JavascriptExecutor) driver).executeScript("body=$('body'); body.bind('keyup', function() {alert('Press Alt + F4 to close');});");
 		DashboardScreen dashboardScreen = new DashboardScreen(driver);
 		dashboardScreen.dashboardSwitherRun();
 
